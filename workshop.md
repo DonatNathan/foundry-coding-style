@@ -19,7 +19,7 @@ It applies to:
 - events,
 - performance.
 
-> [IMPORTANT]
+> [!IMPORTANT]
 > The coding style is a convention, not a substitute for a working application. A module that follows every rule and does not do what its users need is still a bad module.
 
 It is easier and quicker to follow this style from the start of a module than to clean up an existing module at the end.
@@ -28,11 +28,11 @@ When you face a choice that this document does not cover, pick the option that m
 
 ---
 
-## How to Read This Document
+## Rule Codes
 
-### Rule Codes
+Severity levels, rule sources, exceptions and implicit rules are shared by every guide: see [How to Read the Guides](README.md#how-to-read-the-guides).
 
-Every rule has a code you can reference in reviews, comments and commit messages:
+Workshop rules use the `W-` prefix followed by a category letter and a number:
 
 ```
 W-<Category><Number>        e.g. W-N3, W-M1, W-L1
@@ -47,24 +47,6 @@ W-<Category><Number>        e.g. W-N3, W-M1, W-L1
 | `W-C` | Components |
 | `W-E` | Events |
 | `W-P` | Performance |
-
-Codes are never reused. When a rule is removed, its code is retired.
-
-### Severity Levels
-
-| Level | Meaning |
-|---|---|
-| 🔴 **Major** | Blocks a release. Fix it before the module is shared with users. |
-| 🟡 **Minor** | Should be fixed. Acceptable temporarily with a note in the review. |
-| 🔵 **Info** | Recommendation. Use your judgment. |
-
-### Justified Exceptions
-
-You may break a rule if you provide a **complete, relevant and accurate justification with a long-term view** (clarity, maintainability, performance). The reviewer decides whether the justification is acceptable, so make a strong argument or follow the rule.
-
-### Implicit Rules
-
-There are many ways to build an unclear module, and this document cannot list all of them. Bad practices that are not written here still count. They are treated as 🔵 **Info**.
 
 ---
 
