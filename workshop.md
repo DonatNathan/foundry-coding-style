@@ -106,7 +106,7 @@ A prefix gives the **scope** of a variable, never its type.
 
 **Scope prefix.** When a variable serves **only one part** of the module, prefix it with that part's name in brackets. A scope can be a page, a section, a form, an Action or an overlay.
 
-- The scope follows W-N1 and matches the name of the element it refers to, without the element kind (section `Order Details Panel` → `[Order Details]`).
+- The scope follows [W-N1](#w-n1--language-and-casing) and matches the name of the element it refers to, without the element kind (section `Order Details Panel` → `[Order Details]`).
 - Use **one** prefix only. Do not chain scopes (`[Orders Page] [Filters]`).
 - A variable used by **several** scopes has **no** prefix.
 
@@ -205,9 +205,9 @@ Name widgets and sections after their **content**, followed by the **kind of ele
 
 🔵 **Info** · House
 
-Page, overlay and folder names follow W-N1 and describe a **user goal or feature**, not a technical grouping (`Misc`, `Stuff`, `New`).
+Page, overlay and folder names follow [W-N1](#w-n1--language-and-casing) and describe a **user goal or feature**, not a technical grouping (`Misc`, `Stuff`, `New`).
 
-Like widgets and sections (W-N7), pages and overlays end with their **element kind**:
+Like widgets and sections ([W-N7](#w-n7--widget-and-section-names)), pages and overlays end with their **element kind**:
 
 - Pages: `<Goal> Page`
 - Overlays: `<Purpose> Overlay`
@@ -225,7 +225,7 @@ Like widgets and sections (W-N7), pages and overlays end with their **element ki
 ❌ Misc Page
 ```
 
-When used as a scope prefix (W-N3), drop the element kind: `Creation Form Overlay` → `[Creation Form]`.
+When used as a scope prefix ([W-N3](#w-n3--prefixes)), drop the element kind: `Creation Form Overlay` → `[Creation Form]`.
 
 ---
 
@@ -235,7 +235,7 @@ When used as a scope prefix (W-N3), drop the element kind: `Creation Form Overla
 
 🔵 **Info** · [Official](https://www.palantir.com/docs/foundry/workshop/concepts-variables)
 
-Group related variables in **variable folders** that mirror the scope prefixes of W-N3.
+Group related variables in **variable folders** that mirror the scope prefixes of [W-N3](#w-n3--prefixes).
 
 Folders are a complement to prefixes, not a replacement. They do not appear in widget input dropdowns, and the feature is still limited today. This rule may become 🟡 Minor once folders improve.
 
@@ -286,7 +286,7 @@ Use a Function when the logic cannot be expressed natively or would require a lo
 
 🔵 **Info** · House
 
-Keep variables shared by several scopes (variables without a prefix, see W-N3) to the minimum. Every shared variable is a hidden dependency between parts of the module. When a variable is only used in one place, scope it.
+Keep variables shared by several scopes (variables without a prefix, see [W-N3](#w-n3--prefixes)) to the minimum. Every shared variable is a hidden dependency between parts of the module. When a variable is only used in one place, scope it.
 
 ### W-V6 — Named Constants
 
@@ -308,7 +308,7 @@ A non-trivial value used in several places (a threshold, a default date range, a
 
 🔴 **Major** · House
 
-A module, or an embedded module, must not contain **more than 50 variables**. Beyond that, split the module into embedded modules, each representing a logical entity (see W-M2).
+A module, or an embedded module, must not contain **more than 50 variables**. Beyond that, split the module into embedded modules, each representing a logical entity (see [W-M2](#w-m2--module-coherence)).
 
 Why: The documentation recommends embedded modules to "reduce the number of variables" ([FAQ](https://www.palantir.com/docs/foundry/workshop/application-design-faqs)).
 
@@ -340,8 +340,8 @@ When the same interface appears on several pages or in several applications, bui
 
 The interface variables of an embedded module are its public API, like a function's arguments.
 
-- Name them like any other variable (W-N1, W-N4), without an `[Input]` or `[Output]` prefix. Use the module interface filter of the Variables panel to find them.
-- An embedded module should not need **more than 6 interface variables**. If it needs more, it probably does more than one thing (W-M2).
+- Name them like any other variable ([W-N1](#w-n1--language-and-casing), [W-N4](#w-n4--naming-by-role)), without an `[Input]` or `[Output]` prefix. Use the module interface filter of the Variables panel to find them.
+- An embedded module should not need **more than 6 interface variables**. If it needs more, it probably does more than one thing ([W-M2](#w-m2--module-coherence)).
 
 ### W-M5 — Embedding Depth
 
@@ -488,7 +488,7 @@ A button that deletes data or triggers an action that cannot easily be undone **
 - Do not repeat what the section header already says.
 
 > [!NOTE]
-> Title Case (W-N1) applies to **names** that builders see. Sentence case applies to **labels** that end users read on buttons.
+> Title Case ([W-N1](#w-n1--language-and-casing)) applies to **names** that builders see. Sentence case applies to **labels** that end users read on buttons.
 
 ### W-C6 — Choosing a Filter Widget
 
@@ -538,7 +538,7 @@ Be aware that variables used by **layout visibility** settings are still compute
 
 🔵 **Info** · [Official](https://www.palantir.com/docs/foundry/workshop/concepts-variables)
 
-Before sharing a module, open the **variable lineage graph** with **computation time** enabled. Slow variables are candidates for splitting (W-V3) or for a different recompute setting.
+Before sharing a module, open the **variable lineage graph** with **computation time** enabled. Slow variables are candidates for splitting ([W-V3](#w-v3--one-job-per-function-backed-variable)) or for a different recompute setting.
 
 ---
 
