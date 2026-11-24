@@ -179,8 +179,9 @@ When a name refers to an object type or property, use **its display name in the 
 Ontology object type: "Purchase Order"
 
 ✅ Selected Purchase Order
+
 ❌ Selected PO
-❌ Selected Order          (if "Order" is a different object type)
+❌ Selected Order
 ```
 
 ### W-N7 — Widget and Section Names
@@ -200,11 +201,31 @@ Name widgets and sections after their **content**, followed by the **kind of ele
 ❌ Section 12
 ```
 
-### W-N8 — Pages and Folders
+### W-N8 — Pages, Overlays and Folders
 
 🔵 **Info** · House
 
-Page and folder names follow W-N1 and describe a **user goal or feature** (`Order Review`, `Supplier Overview`), not a technical grouping (`Misc`, `Stuff`, `New`).
+Page, overlay and folder names follow W-N1 and describe a **user goal or feature**, not a technical grouping (`Misc`, `Stuff`, `New`).
+
+Like widgets and sections (W-N7), pages and overlays end with their **element kind**:
+
+- Pages: `<Goal> Page`
+- Overlays: `<Purpose> Overlay`
+- Folders: no suffix, since they only contain variables.
+
+```
+✅ Dashboard Page
+✅ Order Review Page
+✅ Creation Form Overlay
+✅ Delete Confirmation Overlay
+
+❌ Dashboard                 (missing element kind)
+❌ Page 2
+❌ Overlay 1
+❌ Misc Page
+```
+
+When used as a scope prefix (W-N3), drop the element kind: `Creation Form Overlay` → `[Creation Form]`.
 
 ---
 
@@ -529,7 +550,7 @@ Before sharing a module, open the **variable lineage graph** with **computation 
 | W-N5 | Boolean Names | 🟡 Minor | House |
 | W-N6 | Ontology Vocabulary | 🟡 Minor | House |
 | W-N7 | Widget and Section Names | 🟡 Minor | House |
-| W-N8 | Pages and Folders | 🔵 Info | House |
+| W-N8 | Pages, Overlays and Folders | 🔵 Info | House |
 | W-V1 | Variable Folders | 🔵 Info | Official |
 | W-V2 | No Orphan Variables | 🟡 Minor | Official |
 | W-V3 | One Job per Function-Backed Variable | 🟡 Minor | House |
