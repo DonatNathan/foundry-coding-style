@@ -251,7 +251,9 @@ Folders are a complement to prefixes, not a replacement. They do not appear in w
 
 🟡 **Minor** · [Official](https://www.palantir.com/docs/foundry/workshop/concepts-variables)
 
-A variable used by no widget, event or downstream variable must be deleted. Use the variable lineage graph to check. Orphan variables are dead code.
+A variable used by no widget, event or downstream variable must be deleted. Orphan variables are dead code.
+
+Workshop shows a **warning** on unused variables. To understand why a variable is unused before deleting it, check the variable lineage graph.
 
 ### W-V3 — One Job per Function-Backed Variable
 
@@ -294,6 +296,7 @@ A non-trivial value used in several places (a threshold, a default date range, a
 
 ```
 ✅ Late Threshold Days = 7        (used by 3 filters)
+
 ❌ "7" typed directly in 3 filters
 ```
 
@@ -307,7 +310,7 @@ A non-trivial value used in several places (a threshold, a default date range, a
 
 A module, or an embedded module, must not contain **more than 50 variables**. Beyond that, split the module into embedded modules, each representing a logical entity (see W-M2).
 
-Why: a Palantir Workshop team member notes that modules with hundreds of variables become unwieldy ([community thread](https://community.palantir.com/t/workshop-variables/6743)), and the documentation recommends embedded modules to "reduce the number of variables" ([FAQ](https://www.palantir.com/docs/foundry/workshop/application-design-faqs)). 50 is our threshold: past it, a builder can no longer see the whole module in one scroll of the Variables panel.
+Why: The documentation recommends embedded modules to "reduce the number of variables" ([FAQ](https://www.palantir.com/docs/foundry/workshop/application-design-faqs)).
 
 > [!TIP]
 > Past 30 variables, start planning the split. Splitting at 50 is easier than at 150.
@@ -348,7 +351,7 @@ Do not nest embedded modules **more than 3 levels deep** (parent → child → g
 
 ### W-M6 — Design Before Building
 
-🔵 **Info** · Palantir ([community thread](https://community.palantir.com/t/workshop-variables/6743))
+🔵 **Info** · House
 
 Sketch the pages, the embedded modules and their interfaces **before** building. Splitting a large module afterwards is much more expensive than planning it.
 
@@ -562,7 +565,7 @@ Before sharing a module, open the **variable lineage graph** with **computation 
 | W-M3 | Embedded Modules for Reuse | 🟡 Minor | Official |
 | W-M4 | Module Interface | 🟡 Minor | House |
 | W-M5 | Embedding Depth | 🟡 Minor | House |
-| W-M6 | Design Before Building | 🔵 Info | Palantir (community) |
+| W-M6 | Design Before Building | 🔵 Info | House |
 | W-L1 | Maximum 10 Components per View | 🔴 Major | Official |
 | W-L2 | Maximum 5 Primary Navigation Actions | 🟡 Minor | Official |
 | W-L3 | Whitespace | 🔵 Info | Official |
