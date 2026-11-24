@@ -54,7 +54,7 @@ W-<Category><Number>        e.g. W-N3, W-M1, W-L1
 
 > [!NOTE]
 > **Why plain language instead of `camelCase` or `snake_case`?**
-> Workshop is not a code editor. Its variable search matches individual words, names are compared case-insensitively (`MyVar` and `myvar` are duplicates), and non-developers read these names. A Palantir Workshop team member recommends separate words over camel case for this reason ([community thread](https://community.palantir.com/t/workshop-variables/6743)).
+> Workshop is not a code editor. Its variable search matches individual words, names are compared case-insensitively (`MyVar` and `myvar` are duplicates), and non-developers read these names.
 >
 > The [variables documentation](https://www.palantir.com/docs/foundry/workshop/concepts-variables) shows examples such as `$page_Dashboard_filterState`. **We deliberately do not follow that example.**
 
@@ -98,42 +98,43 @@ A name must describe **what the element holds or shows**, clearly and unambiguou
 
 Abbreviations are tolerated only when they are widely known to the readers (`KPI`, `ID`, `SLA`). Do not invent abbreviations (`Shpmt Cnt`).
 
-### W-N3 — No Type Prefixes
+### W-N3 — Prefixes
 
 🟡 **Minor** · House
 
-Do not put the variable type in its name (`[s]`, `[bool]`, `[os]`). The Variables panel can filter by type, and the icon already shows it.
+A prefix gives the **scope** of a variable, never its type.
+
+**Scope prefix.** When a variable serves **only one part** of the module, prefix it with that part's name in brackets. A scope can be a page, a section, a form, an Action or an overlay.
+
+- The scope follows W-N1 and matches the name of the element it refers to, without the element kind (section `Order Details Panel` → `[Order Details]`).
+- Use **one** prefix only. Do not chain scopes (`[Orders Page] [Filters]`).
+- A variable used by **several** scopes has **no** prefix.
+
+**Forbidden prefixes.**
+
+- No **type** prefixes (`[s]`, `[bool]`, `[os]`) or type suffixes. The Variables panel can filter by type, and the icon already shows it.
+- No **module interface** prefixes (`[Input]`, `[Output]`). The Variables panel can filter on the module interface.
+- No `[Global]` prefix. Shared variables have no prefix.
 
 ```
-✅ Order Comment Input
-❌ [s] Order Comment Input
-❌ Order Comment Input String
-```
+✅ [Order Form] Comment Input
+✅ [Approve Order] Rejection Reason
+✅ [Filters] Selected Statuses
+✅ [Order Details] Is Edit Mode On
+✅ Selected Order                      (used by several sections: no prefix)
 
-### W-N4 — Scope Prefixes
-
-🟡 **Minor** · House
-
-Use a bracketed prefix **only** when the scope of a variable is not obvious from the module it lives in. The allowed prefixes are:
-
-| Prefix | Use for |
-|---|---|
-| `[Global]` | A variable used across several pages or sections of the application |
-| `[Input]` | A module interface variable that the parent module writes into this module |
-| `[Output]` | A module interface variable that this module exposes to its parent |
-
-```
-✅ [Global] Current User Region
-✅ [Input] Selected Site
-✅ [Output] Validated Order
-
-❌ [Orders Page] Selected Order   (use a folder instead, see W-V1)
+❌ [s] Order Comment Input             (type prefix)
+❌ Order Comment Input String          (type suffix)
+❌ [Input] Selected Site               (use the module interface filter)
+❌ [Global] Current User Region        (shared variables have no prefix)
+❌ [Orders Page] [Filters] Statuses    (one prefix only)
+❌ [Order Details Panel] Due Date      (drop the element kind)
 ```
 
 > [!TIP]
-> Folders do not appear when you pick a variable from a widget's input dropdown. Only the name does. That is why a scope must sometimes live in the name.
+> Folders do not appear when you pick a variable from a widget's input dropdown. Only the name does. That is why the scope lives in the name.
 
-### W-N5 — Naming by Role
+### W-N4 — Naming by Role
 
 🟡 **Minor** · House
 
@@ -152,7 +153,7 @@ Most variables play one of a few recurring roles. Name them with the matching pa
 | Constant | `<Subject> <Unit>` | `Late Threshold Days` |
 | Function output | `<Result>` (what it returns, not the function name) | `Forecast Revenue` |
 
-### W-N6 — Boolean Names
+### W-N5 — Boolean Names
 
 🟡 **Minor** · House
 
@@ -168,7 +169,7 @@ A Boolean variable is named as a **yes/no question**, starting with `Is`, `Has`,
 ❌ Toggle 2
 ```
 
-### W-N7 — Ontology Vocabulary
+### W-N6 — Ontology Vocabulary
 
 🟡 **Minor** · House
 
@@ -182,7 +183,7 @@ Ontology object type: "Purchase Order"
 ❌ Selected Order          (if "Order" is a different object type)
 ```
 
-### W-N8 — Widget and Section Names
+### W-N7 — Widget and Section Names
 
 🟡 **Minor** · House
 
@@ -199,7 +200,7 @@ Name widgets and sections after their **content**, followed by the **kind of ele
 ❌ Section 12
 ```
 
-### W-N9 — Pages and Folders
+### W-N8 — Pages and Folders
 
 🔵 **Info** · House
 
@@ -211,18 +212,18 @@ Page and folder names follow W-N1 and describe a **user goal or feature** (`Orde
 
 ### W-V1 — Variable Folders
 
-🟡 **Minor** · [Official](https://www.palantir.com/docs/foundry/workshop/concepts-variables)
+🔵 **Info** · [Official](https://www.palantir.com/docs/foundry/workshop/concepts-variables)
 
-Group related variables in **variable folders**, one folder per page, feature or embedded module interface. A module with more than about 15 variables must use folders.
+Group related variables in **variable folders** that mirror the scope prefixes of W-N3.
+
+Folders are a complement to prefixes, not a replacement. They do not appear in widget input dropdowns, and the feature is still limited today. This rule may become 🟡 Minor once folders improve.
 
 ```
-✅ Orders Page/
-     All Orders
-     Late Orders
-     Selected Order
-   Module Interface/
-     [Input] Selected Site
-     [Output] Validated Order
+✅ Order Form/
+     [Order Form] Comment Input
+     [Order Form] Delivery Date Input
+   Approve Order/
+     [Approve Order] Rejection Reason
 ```
 
 ### W-V2 — No Orphan Variables
@@ -258,11 +259,11 @@ When a native variable definition does the job (object set filter, object set ag
 
 Use a Function when the logic cannot be expressed natively or would require a long chain of variables.
 
-### W-V5 — Avoid Global Variables
+### W-V5 — Limit Shared Variables
 
 🔵 **Info** · House
 
-Keep `[Global]` variables (see W-N4) to the minimum. Every global variable is a hidden dependency between pages. Prefer passing values through module interface variables.
+Keep variables shared by several scopes (variables without a prefix, see W-N3) to the minimum. Every shared variable is a hidden dependency between parts of the module. When a variable is only used in one place, scope it.
 
 ### W-V6 — Named Constants
 
@@ -315,7 +316,7 @@ When the same interface appears on several pages or in several applications, bui
 
 The interface variables of an embedded module are its public API, like a function's arguments.
 
-- Prefix them with `[Input]` or `[Output]` (W-N4) and keep them in a `Module Interface` folder (W-V1).
+- Name them like any other variable (W-N1, W-N4), without an `[Input]` or `[Output]` prefix. Use the module interface filter of the Variables panel to find them.
 - An embedded module should not need **more than 6 interface variables**. If it needs more, it probably does more than one thing (W-M2).
 
 ### W-M5 — Embedding Depth
@@ -523,18 +524,17 @@ Before sharing a module, open the **variable lineage graph** with **computation 
 |---|---|---|---|
 | W-N1 | Language and Casing | 🔴 Major | House |
 | W-N2 | Descriptive Names | 🔴 Major | Official |
-| W-N3 | No Type Prefixes | 🟡 Minor | House |
-| W-N4 | Scope Prefixes | 🟡 Minor | House |
-| W-N5 | Naming by Role | 🟡 Minor | House |
-| W-N6 | Boolean Names | 🟡 Minor | House |
-| W-N7 | Ontology Vocabulary | 🟡 Minor | House |
-| W-N8 | Widget and Section Names | 🟡 Minor | House |
-| W-N9 | Pages and Folders | 🔵 Info | House |
-| W-V1 | Variable Folders | 🟡 Minor | Official |
+| W-N3 | Prefixes | 🟡 Minor | House |
+| W-N4 | Naming by Role | 🟡 Minor | House |
+| W-N5 | Boolean Names | 🟡 Minor | House |
+| W-N6 | Ontology Vocabulary | 🟡 Minor | House |
+| W-N7 | Widget and Section Names | 🟡 Minor | House |
+| W-N8 | Pages and Folders | 🔵 Info | House |
+| W-V1 | Variable Folders | 🔵 Info | Official |
 | W-V2 | No Orphan Variables | 🟡 Minor | Official |
 | W-V3 | One Job per Function-Backed Variable | 🟡 Minor | House |
 | W-V4 | Prefer Native Definitions | 🔵 Info | House |
-| W-V5 | Avoid Global Variables | 🔵 Info | House |
+| W-V5 | Limit Shared Variables | 🔵 Info | House |
 | W-V6 | Named Constants | 🔵 Info | House |
 | W-M1 | Maximum 50 Variables per Module | 🔴 Major | House |
 | W-M2 | Module Coherence | 🔴 Major | House |
